@@ -10,7 +10,9 @@ class RangeValidator {
       throw new TypeError("Invalid type");
     }
     if (newFrom > this.to && this.to !== undefined) {
-      throw new RangeError("");
+      throw new RangeError(
+        "The initial value of the range must not be less than the final"
+      );
     }
     this._from = newFrom;
   }
@@ -34,19 +36,21 @@ class RangeValidator {
   }
 
   getterRange() {
-    const range = [];
+    const arr = [];
     {
-      range.push(this.from, this.to);
+      arr.push(this.from, this.to);
     }
-    return range;
+    return arr;
   }
+
   validate(number) {
+    if (isNaN(number) || typeof number !== "number") {
+      throw new TypeError("Invalid type");
+    }
     if (number >= this.from && number <= this.to) {
       return number;
     }
-    throw new TypeError("Invalid type");
+    throw new RangeError("the number is not in the specified range");
   }
 }
-const range1 = new RangeValidator(12, 15);
-console.log(range1);
-console.log(range1.validate(12));
+const range1 = new RangeValidator(10, 15);
