@@ -35,12 +35,8 @@ class RangeValidator {
     return this._to;
   }
 
-  getterRange() {
-    const arr = [];
-    {
-      arr.push(this.from, this.to);
-    }
-    return arr;
+  get range() {
+    return [this.from, this.to];
   }
 
   validate(number) {
